@@ -104,7 +104,7 @@ class BaseMasterAgent(ABC):
             logger.exception(error_message)
 
             trace = {
-                "name": "MasterAgent",
+                "name": "MasterNewAgent",
                 "input": messages[-1].model_dump(),
                 "output": error_message,
                 "is_success": False
