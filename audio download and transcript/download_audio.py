@@ -6,7 +6,7 @@ def download_audio():
 
     ydl_opts = {
         'format': 'bestaudio/best',
-        'outtmpl': 'downloaded_audio.%(ext)s',
+        'outtmpl': 'audio1.%(ext)s',
         'quiet': True,
         'no_warnings': True,
         'postprocessors': [{
