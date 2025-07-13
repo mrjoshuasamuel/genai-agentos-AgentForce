@@ -26,12 +26,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 AGENT_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZmYxMmViYi05MDRlLTQyNTktOWQzMi00MWMyZTIwM2E0ZDEiLCJleHAiOjI1MzQwMjMwMDc5OSwidXNlcl9pZCI6IjdmOTgwYTg0LWE4N2ItNDVmMy05ODBkLTYxN2E0ZWY0NjI1OSJ9.9AeF-3X7HJlGFl0wugzEx15YfmnEDme_KkFpKpJrN6o" # noqa: E501
 
-
-# AGENT_JWT = os.getenv("AGENT_JWT") or "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."  # Add your token here
-# AGENT_JWT = os.getenv("AGENT_JWT") or "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."  # Add your token here
-
 session = GenAISession(jwt_token=AGENT_JWT)
-
 
 class ResponseBuilder:
     """Standardize all agent responses"""
