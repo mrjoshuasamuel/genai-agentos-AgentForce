@@ -1,0 +1,8 @@
+transformers==4.41.2
+torch>=2.2.0; platform_system != 'Windows'
+sumy==0.11.0
+nltk==3.8.1
+openai==1.30.1
+aiohttp==3.9.5
+python-dotenv==1.0.1
+genai-session==0.3.7
