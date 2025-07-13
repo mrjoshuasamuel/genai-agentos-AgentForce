@@ -1,67 +1,77 @@
+import json
+import os
+import time
 import whisper
+import language_tool_python
 
-# Load the Whisper model
+# Load video info from JSON file
+with open("video_info.json", "r", encoding="utf-8") as f:
+    video_info = json.load(f)
+
+# Start timer
+start_time = time.time()
+
+# Load Whisper model
 model = whisper.load_model("base")
 print("[INFO] Model loaded.")
 
-# Transcribe the audio file
-result = model.transcribe("audio1.mp3")
-print("[INFO] Transcription result:")
+# Transcribe audio
+result = model.transcribe("audio1.wav", word_timestamps=True)
 
-# Extract raw text
+# Extract text and timestamps
 raw_transcript = result["text"]
-print("[INFO] Raw Transcript:")
-print(raw_transcript)
+
+timestamps = []
+for segment in result["segments"]:
+    timestamps.append({
+        "start": segment["start"],
+        "end": segment["end"],
+        "text": segment["text"]
+    })
 
 # Detect language
-detected_lang = result["language"]
+detected_lang = result.get("language", "unknown")
 
-# Map ISO codes to LanguageTool codes and readable names
-lang_mapping = {
-    "en": ("en-US", "English"),
-    "de": ("de-DE", "German"),
-    "fr": ("fr", "French"),
-    "es": ("es", "Spanish"),
-    "pt": ("pt", "Portuguese"),
-    "it": ("it", "Italian"),
-    "nl": ("nl", "Dutch"),
-    "pl": ("pl", "Polish"),
-    "ru": ("ru", "Russian"),
+# Initialize LanguageTool (default English)
+tool = language_tool_python.LanguageTool('en-US')
+
+# Correct transcript
+matches = tool.check(raw_transcript)
+corrected_transcript = language_tool_python.utils.correct(raw_transcript, matches)
+
+# Collect audio metadata (dummy values for illustration)
+audio_info = {
+    "sample_rate": 44100,
+    "format": "wav",
+    "file_size_mb": round(os.path.getsize("audio1.wav") / (1024 * 1024), 2)
 }
 
-lt_entry = lang_mapping.get(detected_lang)
-if lt_entry:
-    lt_code, lang_name = lt_entry
-    print(f"[INFO] Detected language: {lang_name} ({detected_lang})")
-    do_correction = True
-else:
-    print(f"[INFO] Detected language '{detected_lang}' is not supported by LanguageTool. Skipping correction.")
-    do_correction = False
+# Construct output dictionary
+output = {
+    "success": True,
+    "data": {
+        "original_text": corrected_transcript,
+        "metadata": {
+            "video_id": video_info["video_id"],
+            "video_title": video_info["video_title"],
+            "video_duration": video_info["video_duration"],
+            "detected_language": detected_lang,
+            "speaker_info": {
+                "gender": "unknown",
+                "confidence": None,
+                "voice_characteristics": {
+                    "tone": "unknown",
+                    "speed": "unknown"
+                }
+            },
+            "audio_info": audio_info
+        },
+        "timestamps": timestamps,
+        "temp_audio_file": os.path.abspath("audio1.wav")
+    },
+    "processing_time": round(time.time() - start_time, 2),
+    "warnings": []
+}
 
-# Save raw transcript
-with open("transcript.txt", "w", encoding="utf-8") as f:
-    f.write(raw_transcript)
-print("[INFO] Transcript saved to transcript.txt")
-
-# If supported, run LanguageTool correction
-if do_correction:
-    import language_tool_python
-
-    # Initialize the LanguageTool client
-    tool = language_tool_python.LanguageTool(lt_code)
-    print(f"[INFO] LanguageTool initialized for {lang_name}")
-
-    # Correct grammar and spelling
-    matches = tool.check(raw_transcript)
-    corrected_transcript = language_tool_python.utils.correct(raw_transcript, matches)
-
-    # Print and save corrected transcript
-    print("[INFO] Corrected Transcript:")
-    print(corrected_transcript)
-
-    with open("corrected_transcript.txt", "w", encoding="utf-8") as f:
-        f.write(corrected_transcript)
-    print("[INFO] Corrected transcript saved to corrected_transcript.txt")
-else:
-    # If not supported, inform user and just save raw again
-    print("[INFO] Skipped correction due to unsupported language.")
+# Print final output
+print(json.dumps(output, indent=2, ensure_ascii=False))
