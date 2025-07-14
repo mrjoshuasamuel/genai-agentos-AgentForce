@@ -27,8 +27,8 @@ session = GenAISession(jwt_token=AGENT_JWT)
 MURF_API_KEY = os.getenv("MURF_API_KEY")
 
 # === Notion Configuration ===
-NOTION_API_KEY = "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"
-NOTION_DATABASE_ID = "22ff169cb25a8099af37de9fc2d7f8ec"
+NOTION_API_KEY = os.getenv("NOTION_API_KEY")
+NOTION_DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
 if not MURF_API_KEY:
     logger.warning("MURF_API_KEY is missing - TTS generation will be disabled")
 if not NOTION_API_KEY:
