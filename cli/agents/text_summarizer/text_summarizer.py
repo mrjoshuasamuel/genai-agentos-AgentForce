@@ -20,12 +20,12 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 AGENT_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZDFjOTNjZi1hZGQ5LTQyZjEtYTBiMy0yMzYyMTRjNjJhZjAiLCJleHAiOjI1MzQwMjMwMDc5OSwidXNlcl9pZCI6ImNiMDhmMzU4LWNkYTAtNDIyOC04ZTFlLWVlYjk3ZjFmYjFhZCJ9.L2nW6g8VI2AJsbuyUpDEeLcpkxMM8sw29OTo_NHB-_8" # noqa: E501
 session = GenAISession(jwt_token=AGENT_JWT)
 
-NOTION_API_KEY = "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"
-NOTION_DATABASE_ID = "22ff169cb25a8099af37de9fc2d7f8ec"
+NOTION_API_KEY = os.getenv("NOTION_API_KEY")
+NOTION_DATABASE_ID = os.getenv("NOTION_DATABASE_ID")
 
 headers = {
     "Authorization": "Bearer " + NOTION_API_KEY,

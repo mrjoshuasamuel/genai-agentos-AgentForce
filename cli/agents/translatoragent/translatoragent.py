@@ -10,7 +10,7 @@ import logging
 
 # === Load environment variables ===
 load_dotenv()
-OPENAI_API_KEY = "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"
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 AGENT_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3Mzc2MDY5OC1hMWJkLTRhODYtOGMwYi03YjgxN2M2NmQ3YWQiLCJleHAiOjI1MzQwMjMwMDc5OSwidXNlcl9pZCI6ImNiMDhmMzU4LWNkYTAtNDIyOC04ZTFlLWVlYjk3ZjFmYjFhZCJ9.iATSdVdtkCHB5Df3TWAfLTGbDJvz6pqyJLz9IMStrLY" # noqa: E501
 session = GenAISession(jwt_token=AGENT_JWT)
 
