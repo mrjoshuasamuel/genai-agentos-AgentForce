@@ -104,7 +104,7 @@ class BaseMasterAgent(ABC):
             logger.exception(error_message)
 
             trace = {
-                "name": "YouTubeTranslationMasterAgent",
+                "name": "VideoTranslationMasterAgent",
                 "input": messages[-1].model_dump(),
                 "output": error_message,
                 "is_success": False

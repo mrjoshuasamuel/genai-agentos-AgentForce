@@ -21,7 +21,7 @@ class FlowMasterAgent(BaseMasterAgent):
     async def select_agent(self, state: MasterAgentState):
         messages = state.messages
         trace = {
-            "name": "YouTubeTranslationMasterAgent",
+            "name": "VideoTranslationMasterAgent",
             "input": messages[-1].model_dump(),
         }
 
@@ -55,7 +55,7 @@ class FlowMasterAgent(BaseMasterAgent):
             logger.exception(error_message)
 
             trace = {
-                "name": "YouTubeTranslationMasterAgent",
+                "name": "VideoTranslationMasterAgent",
                 "input": messages[-1].model_dump(),
                 "output": error_message,
                 "is_success": False
