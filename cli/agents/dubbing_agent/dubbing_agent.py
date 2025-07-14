@@ -24,7 +24,7 @@ AGENT_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NzM4MzY1OS1iM2ZiLT
 session = GenAISession(jwt_token=AGENT_JWT)
 
 # === Murf Configuration ===
-MURF_API_KEY = "ap2_1725b5c2-eb22-4d60-8027-f61fb20d0b0a"
+MURF_API_KEY = os.getenv("MURF_API_KEY")
 
 # === Notion Configuration ===
 NOTION_API_KEY = "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"

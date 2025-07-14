@@ -24,7 +24,7 @@ from genai_session.utils.context import GenAIContext
 
 AGENT_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxODZjNGVhYS0xNDQ4LTQ5MGYtOTVkYi00OGUxYzg5MGY4MTAiLCJleHAiOjI1MzQwMjMwMDc5OSwidXNlcl9pZCI6ImNiMDhmMzU4LWNkYTAtNDIyOC04ZTFlLWVlYjk3ZjFmYjFhZCJ9.sjQbBYHr__Uo1yT37AEc_7BJJy5suC-sCbXgmLdlAC4" # noqa: E501
 ROUTER_WS_URL = os.getenv("ROUTER_WS_URL", "ws://localhost:8001/ws")
-HUGGINGFACE_TOKEN = "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"
+HUGGINGFACE_TOKEN = os.getenv("HUGGINGFACE_TOKEN")
 
 session = GenAISession(jwt_token=AGENT_JWT)
 

@@ -21,6 +21,7 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+
 AGENT_JWT = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZDFjOTNjZi1hZGQ5LTQyZjEtYTBiMy0yMzYyMTRjNjJhZjAiLCJleHAiOjI1MzQwMjMwMDc5OSwidXNlcl9pZCI6ImNiMDhmMzU4LWNkYTAtNDIyOC04ZTFlLWVlYjk3ZjFmYjFhZCJ9.L2nW6g8VI2AJsbuyUpDEeLcpkxMM8sw29OTo_NHB-_8" # noqa: E501
 session = GenAISession(jwt_token=AGENT_JWT)
 
