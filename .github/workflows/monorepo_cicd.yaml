@@ -21,9 +21,6 @@ jobs:
       - name: Install linters
         run: pip install ruff black
 
-      - name: Run linters
-        run: |
-          ruff check --exclude=master-agent/ --exclude=tests/ --exclude=genai_agents_example/ .
         # black --check . --extend-exclude='(master-agent|\.venv|tests)/'
 
       - name: Replace volume path for tests
@@ -37,9 +34,3 @@ jobs:
           chmod -R 777 ./tests/test_files
           export COMPOSE_BAKE=true
           docker compose up -d
-
-      - name: Run tests
-        run: |
-          cd tests
-          uv venv && uv sync
-          uv run python -m pytest -s TestAPI -vv

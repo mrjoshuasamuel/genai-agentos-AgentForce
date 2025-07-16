@@ -464,7 +464,7 @@ class YouTubeAudioExtractor:
                 audio_files = list(Path(self.temp_dir).glob(f"audio_{audio_id}.*"))
                 
                 if not audio_files:
-                    raise FileNotFoundError(f"Audio extraction failed - no output file found")
+                    raise FileNotFoundError("Audio extraction failed - no output file found")
                 
                 actual_output_path = str(audio_files[0])
                 file_size = os.path.getsize(actual_output_path)
