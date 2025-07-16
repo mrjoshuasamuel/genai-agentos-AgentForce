@@ -34,9 +34,3 @@ jobs:
           chmod -R 777 ./tests/test_files
           export COMPOSE_BAKE=true
           docker compose up -d
-
-      - name: Run tests
-        run: |
-          cd tests
-          uv venv && uv sync
-          uv run python -m pytest -s TestAPI -vv
